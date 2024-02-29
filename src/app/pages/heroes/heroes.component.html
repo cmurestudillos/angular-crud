@@ -1,0 +1,49 @@
+<h1>Listado de Heroes</h1>
+<hr>
+
+<div class="row">
+    <div class="col text-right">
+        <button class="btn btn-outline-primary" routerLink="/heroe/nuevo" title="Alta"><i class="fa fa-plus"></i> Nuevo </button>
+    </div>
+</div>
+
+<table *ngIf="!cargando && heroes.length > 0" class="table mt-3" aria-label="List de heroes">
+    <thead class="bg-custom">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Poder</th>
+            <th scope="col">Estado</th>
+            <th scope="col" colspan="2" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let heroe of heroes; let ind = index">
+            <td>{{ heroe.nombre}}</td>
+            <td>{{ heroe.poder}}</td>
+            <td>
+                <i *ngIf="heroe.estado" class="fa fa-thumbs-up text-success fa-2x" title="Vivo"></i>
+                <i *ngIf="!heroe.estado" class="fa fa-thumbs-down text-danger fa-2x" title="Muerto"></i>
+            </td>
+            <td class="text-center">
+                <button class="btn btn-outline-warning mr-1" [routerLink]="['/heroe', heroe.id]" title="Editar"><i class="fa fa-pen"></i></button>
+                <button class="btn btn-outline-danger" (click)="borrarHeroe(heroe, ind)" title="Eliminar"><i class="fa fa-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" class="bg-custom"><span><i>Copyright© - Carlos Mur</i></span></td>
+        </tr>
+    </tfoot>
+</table>
+
+<div *ngIf="!cargando && heroes.length === 0" class="alert alert-warning text-center mt-3">
+    <h4 class="alert-heading">No hay registros</h4>
+    <p><i class="fa fa-exclamation fa-2x"></i></p>
+</div>
+
+<div *ngIf="cargando" class="alert alert-info text-center mt-3">
+    <h4 class="alert-heading">Cargando</h4>
+    <p><i class="fa fa-spinner fa-spin fa-2x"></i></p>
+    <p class="mb-0">Espere por favor...</p>
+</div>
